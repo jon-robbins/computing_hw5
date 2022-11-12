@@ -10,7 +10,19 @@
 # an exception with the following message: 
 # "Undefined instruction for color: <light>" 
 # where <light> is the value of the parameter light.
-#
+##%
+def car_at_light(light):
+    if light == 'red':
+        return 'stop'
+    elif light == 'yellow':
+        return 'wait'
+    elif light == 'green':
+        return 'go'
+    else:
+        return f'Undefined instruction for color {light}'
+
+print(car_at_light("purple"))
+##%
 
 # 2)
 # Create a function named "safe_subtract" that
@@ -54,9 +66,9 @@ for string in ['I', 'am', 'Groot']:
     strings = string+"_"+string
 
 ### (c) Careful!
-j=10
-while j > 0:
-   j += 1
+#j=10
+#while j > 0:
+#   j += 1
 
 ### (d)
 productory = 0
