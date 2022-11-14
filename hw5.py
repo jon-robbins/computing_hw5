@@ -154,32 +154,68 @@ for i in strings:
 count2 = len(list(filter(lambda x: 'Simba' in x, strings)))
 #count2 is less readable, so if efficiency isn't a problem the for loop is better.
 
+def count_simba(str):
+    result = list(map(lambda x: 'Simba' in x , str))
+    return sum(result)
+
 # 7)
-# Create a function called "get_day_month_year" that takes 
+# Create a function called "get_day_month_year" that takes
 # a list of datetimes.date and returns a pandas dataframe
 # with 3 columns (day, month, year) in which each of the rows
-# is an element of the input list and has as value its 
+# is an element of the input list and has as value its
 # day, month, and year.
-# 
+#
+import datetime
+def get_day_month_year(date_list):
+    df = pd.DataFrame()
+    df['year'] = list(map(lambda x: x.year, date_list))
+    df['month'] = list(map(lambda x: x.month, date_list))
+    df['day'] = list(map(lambda x: x.day, date_list))
+    return df
 
-# 8) 
+##test E7
+dateList = []
+dateList.append(datetime.date.today())
+dateList.append(datetime.date(2019, 4, 13))
+dateList.append(datetime.date(2020, 12, 25))
+get_day_month_year(dateList)
+
+# 8)
 # Create a function called "compute_distance" that takes
-# a list of tuple pairs with latitude and longitude coordinates and 
+# a list of tuple pairs with latitude and longitude coordinates and
 # returns a list with the distance between the two pairs
 # example input: [((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))]
 # HINT: You can use geopy.distance in order to compute the distance
 #
+from geopy.distance import geodesic as GD
+def compute_distance(ll_list):
+    array = []
+    for a,b in ll_list:
+        array.append(GD(a,b).km)
+    return array
+
+compute_distance([((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))])
 
 #################################################
 # 9)
 # Consider a list that each element can be an integer or
 # a list that contains integers or more lists with integers
-# example: [[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1]. 
+# example: [[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1].
 # create a recursive function called "sum_general_int_list"
-# that takes as input this type of list 
+# that takes as input this type of list
 # and returns the sum of all the integers within the lists
-# for instance for list_1=[[2], 3, [[1,2],5]] 
+# for instance for list_1=[[2], 3, [[1,2],5]]
 # the result should be 13
 #
+def flat_list(num_list,result=[]):
+    for x in num_list:
+        if isinstance(x,list):
+            flat_list(x)
+        else:
+            result.append(x)
+    return result
+def sum_general_int_list(num_list):
+    return sum(flat_list(num_list))
+sum_general_int_list([[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1])
 
 
