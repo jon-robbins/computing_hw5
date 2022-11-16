@@ -155,8 +155,7 @@ count2 = len(list(filter(lambda x: 'Simba' in x, strings)))
 #count2 is less readable, so if efficiency isn't a problem the for loop is better.
 
 def count_simba(str):
-    result = list(map(lambda x: 'Simba' in x , str))
-    return sum(result)
+    return sum(list(map(lambda x: 'Simba' in x , str)))
 
 # 7)
 # Create a function called "get_day_month_year" that takes
@@ -167,18 +166,14 @@ def count_simba(str):
 #
 import datetime
 def get_day_month_year(date_list):
-    df = pd.DataFrame()
-    df['year'] = list(map(lambda x: x.year, date_list))
-    df['month'] = list(map(lambda x: x.month, date_list))
-    df['day'] = list(map(lambda x: x.day, date_list))
-    return df
+    return pd.DataFrame(data=list(map(lambda x: [x.year,x.month,x.day], date_list)),columns=['year','month','day'])
 
-##test E7
-dateList = []
-dateList.append(datetime.date.today())
-dateList.append(datetime.date(2019, 4, 13))
-dateList.append(datetime.date(2020, 12, 25))
-get_day_month_year(dateList)
+##test data
+# dateList = []
+# dateList.append(datetime.date.today())
+# dateList.append(datetime.date(2019, 4, 13))
+# dateList.append(datetime.date(2020, 12, 25))
+# get_day_month_year(dateList)
 
 # 8)
 # Create a function called "compute_distance" that takes
@@ -188,13 +183,12 @@ get_day_month_year(dateList)
 # HINT: You can use geopy.distance in order to compute the distance
 #
 from geopy.distance import geodesic as GD
-def compute_distance(ll_list):
-    array = []
-    for a,b in ll_list:
-        array.append(GD(a,b).km)
-    return array
 
-compute_distance([((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))])
+def compute_distance(ll_list):
+    return list(map(lambda x:GD(x[0],x[1]).km, ll_list))
+
+## test data
+# compute_distance([((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))])
 
 #################################################
 # 9)
@@ -216,6 +210,8 @@ def flat_list(num_list,result=[]):
     return result
 def sum_general_int_list(num_list):
     return sum(flat_list(num_list))
-sum_general_int_list([[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1])
+## test data
+# sum_general_int_list([[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1])
+
 
 
