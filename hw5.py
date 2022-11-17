@@ -38,28 +38,14 @@ def car_at_light(light):
 # If there is any other reason why it fails show the problem
 #
 
-##
-def safe_subtract(a,b):
+def safe_subtract(x,y):
     try:
-        print("First value is {}".format(a))
-        print("Second value is {}".format(b))
-        print("Result is :",b-a)
-        return(b-a)
+        return x - y
     except TypeError:
-        print("Encountered TypeError. Function will return None")
-        return (None)
-    except Exception:
-        print("Exception")
-        return (None)
+        return None
+    else:
+        return "Could not be subtracted due to type"
 
-
-#safe_subtract(2,"a")
-
-##
-
-
-
-#__________________________________________________________________________________________________________#
 
 # 3)
 # Imagine you have a dictionary with the attributes of a person
@@ -70,146 +56,114 @@ def safe_subtract(a,b):
 # Name the first function "retrieve_age_eafp" and follow EAFP
 # Name the second function "retrieve_age_lbyl" and follow lbyl
 
-
-def retrieve_age_eafp(details):
+def retrieve_age_eafp(x: dict):
     try:
-        print(2022 - details['birth'])
-        return 2022 - details['birth']
-    except KeyError :
-        print("Birth detail not available")
-        return
+        return 2022 - x['birth']
+    except KeyError:
+        return 'error'
 
 
-def retrieve_age_lbyl(details):
-    if 'birth' in details.keys():
-        print(2022 - details['birth'])
-        return 2022 - details['birth']
+def retrieve_age_lbyl(x: dict):
+    if 'birth' in x.keys():
+        return 2022 - x['birth']
     else:
-        print("Birth detail not available")
-        return
+        print(f'failed for dict {x}')
+        pass
 
-
-details_1 = {'name': 'John', 'last_name': 'Doe', 'birth': 1987}
-details_2 = {'name': 'Janet', 'last_name': 'Bird', 'gender': 'female'}
-#retrieve_age_eafp(details_1)
-#retrieve_age_eafp(details_2)
-#retrieve_age_lbyl(details_1)
-#retrieve_age_lbyl(details_2)
-
-
-#__________________________________________________________________________________________________________#
 
 # 4)
-# Imagine you have a file named data.csv.
+# Imagine you have a file named data.csv. 
 # Create a function called "read_data" that reads the file
-# making sure to use to handle the fact
-# that it might not exist.
+# making sure to use to handle the fact 
+# that it might not exist. 
 #
 
 import csv
-import pandas
-import os
 
-def read_data(filename):
-    filepath = ""
 
-    # finding the file location and reading
-    for root, dirs, files in os.walk(r'C:'):
-        for name in files:
-            if name == filename:
-                filepath = (os.path.abspath(os.path.join(root, name)))
-                print("File found at File path:",filepath)
+def read_data(filepath):
     try:
-        f = open(str(filepath), "r")
-        print(f.read())
-        # to read the csv as a dataframe we can do the below:
-        # dataframe = pd.read_csv(filepath)
+        with open(filepath, 'r') as data:
+            for line in csv.reader(data):
+                return line
     except FileNotFoundError:
-        print('File Not Found')
+        return 'File Not Found'
 
 
-#filename_present= 'sample_diabetes_mellitus_data.csv'
-# function call with above filename will print the contents of the file
-#read_data(filename_present)
-
-#filename_not_present = 'this_file_is_not_in_system.csv'
-# function call with the above filename will throw File Not Found exception, which is handled in the except block
-#read_data(filename_not_present)
-
-
-#__________________________________________________________________________________________________________#
-
-# 5) Squash some bugs!
-# Find the possible logical errors (bugs)
+# 5) Squash some bugs! 
+# Find the possible logical errors (bugs) 
 # in the code blocks below. Comment in each of them
 # which logical errors did you find and correct them
 ### (a)
 total_double_sum = 0
 for elem in [10, 5, 2]:
     double = elem * 2
-    # total_double_sum += elem     [commented out the logically incorrect code]
-    # to get the sum of double the values in the list we should add 'double' instead of 'elem'
-    # corrected code below:
+
+    total_double_sum += elem
+# total_double_sum is only counted with the values of elem. The easiest way to get the double value of all elements in a list combined would be just to sum the list without iteration, like so:
+
+input_list = [10, 5, 2]
+total_double_sum = sum(input_list) * 2
+# If for some reason you want to iterate, you could use the code below
+
+total_double_sum = 0
+for elem in [10, 5, 2]:
+    double = elem * 2
     total_double_sum += double
 
 ### (b)
 strings = ''
 for string in ['I', 'am', 'Groot']:
-    # strings = string+"_"+string       [commented out the logically incorrect code]
-    # to get a concatenation of the strings in the list we could use .join method as well,
-    # however a small modification as below also works
-    # corrected code below:
-    strings = string + "_"
+    strings = string+"_"+string
+# Looks like you're trying to combine elements in a list into one string.
+# #What this code actually does is iterates over a list, and returns the last string as
+#"Groot_Groot" because you iterate without saving each iteration anywhere.
+# Because strings is defined as one object, not an iterable, you can't iterate over it.
+# Instead join like below
+str_concat = '_'.join(strings)
 
 ### (c) Careful!
 j=10
 while j > 0:
-   # j += 1             [commented out the logically incorrect code]
-   # incrementing value of j by 1 in each iteration results in infinite loop,
-   # rather we should be decrementing the value by 1, so that after 10 iterations
-   # the condition j > 0 become false and the loop terminates
-   # corrected code below:
-   j -= 1
+   j += 1
+# This is just going to keep adding from 10 until infinity, because the while condition
+# is set to j>0, and j will always be >0 while you keep adding one to 10. I don't know what this
+# iteration is trying to achieve, but if you're trying to count from 1 to 10, just change it like below
+j=0
+while j < 10:
+   j += 1
 
 ### (d)
-
-
-# productory = 0                [commented out the logically incorrect code]
-# if we initiate productory with value 0 then in all product we get result zero
-# corrected code below:
+productory = 0
+for elem in [1, 5, 25]:
+    productory *= elem
+#Anything * 0 is 0. Start from 1 instead.
 productory = 1
-
 for elem in [1, 5, 25]:
     productory *= elem
 
-
-
-
-################################################
 ##### Try to use map and reduce in the next 3 exercises
-
+################################################
 # 6)
 # Create a function called "count_simba" that counts
 # the number of times that Simba appears in a list of
-# strings. Example:
+# strings. Example: 
 # ["Simba and Nala are lions.", "I laugh in the face of danger.",
-#  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."]
+#  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."] 
 #
+strings = ["Simba and Nala are lions.", "I laugh in the face of danger.",
+  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."]
 
-from functools import reduce
+count = 0
+for i in strings:
+    if 'Simba' in i:
+        count += 1
 
-def count_simba(list_of_strings):
-    count_per_string = list(map(lambda x: x.count("Simba"), list_of_strings))
-    count = reduce(lambda a, b: a+b, count_per_string)
-    print(count)
+count2 = len(list(filter(lambda x: 'Simba' in x, strings)))
+#count2 is less readable, so if efficiency isn't a problem the for loop is better.
 
-text = ["Simba and Nala are lions.", "I laugh in the face of danger.",
-        "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."]
-
-#count_simba(text)
-
-
-#__________________________________________________________________________________________________________#
+def count_simba(str):
+    return sum(list(map(lambda x: 'Simba' in x , str)))
 
 # 7)
 # Create a function called "get_day_month_year" that takes
@@ -218,30 +172,16 @@ text = ["Simba and Nala are lions.", "I laugh in the face of danger.",
 # is an element of the input list and has as value its
 # day, month, and year.
 #
-
-import pandas as pd
 import datetime
-def get_day_month_year(list_of_datetimes):
-    list_of_dates = list(map(lambda x: x.date, list_of_datetimes))
-    list_of_months = list(map(lambda x: x.month, list_of_datetimes))
-    list_of_years = list(map(lambda x: x.year, list_of_datetimes))
+def get_day_month_year(date_list):
+    return pd.DataFrame(data=list(map(lambda x: [x.year,x.month,x.day], date_list)),columns=['year','month','day'])
 
-    # Calling DataFrame constructor after zipping
-    # the lists, with columns specified
-    df = pd.DataFrame(list(zip(list_of_dates, list_of_months, list_of_years)),
-                      columns=['day', 'month', 'year'])
-    print(df)
-    return df
-
-# creating a datetime list to make fucntion call
-# base = datetime.datetime.today()
-# date_list = [base - datetime.timedelta(days=x) for x in range(10)]
-# function call
-# get_day_month_year(date_list)
-
-
-#__________________________________________________________________________________________________________#
-
+##test data
+# dateList = []
+# dateList.append(datetime.date.today())
+# dateList.append(datetime.date(2019, 4, 13))
+# dateList.append(datetime.date(2020, 12, 25))
+# get_day_month_year(dateList)
 
 # 8)
 # Create a function called "compute_distance" that takes
@@ -250,25 +190,13 @@ def get_day_month_year(list_of_datetimes):
 # example input: [((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))]
 # HINT: You can use geopy.distance in order to compute the distance
 #
+from geopy.distance import geodesic as GD
 
+def compute_distance(ll_list):
+    return list(map(lambda x:GD(x[0],x[1]).km, ll_list))
 
-import itertools
-from geopy.distance import geodesic
-def compute_distance(list_of_coordinates):
-
-    # given input has a list of tuples of tuples , we convert it to list of list of tuples
-    # because reduce can unpack a list of tuples but not tuple of tuples
-    print("Original Input --> List of tuples of tuples :",list_of_coordinates)
-    #list_of_coordinates_modified = list(map(lambda x: list(x), list_of_coordinates))
-    #print("Modified List --> List of list of tuples :",list_of_coordinates_modified)
-    list_of_distances = list(map(lambda x: (geodesic(x[0], x[1]).km), list_of_coordinates))
-    print(list_of_distances)
-    return list_of_distances
-
-
-#compute_distance([((41.23,23.5), (41.5, 23.4)),((52.38, 20.1),(52.3, 17.8))])
-
-
+## test data
+# compute_distance([((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))])
 
 #################################################
 # 9)
@@ -281,18 +209,17 @@ def compute_distance(list_of_coordinates):
 # for instance for list_1=[[2], 3, [[1,2],5]]
 # the result should be 13
 #
-
-def sum_general_int_list(l):
-    total = 0
-    for j in range(len(l)):
-        if type(l[j]) == list:
-            total += sum_general_int_list(l[j])
+def flat_list(num_list,result=[]):
+    for x in num_list:
+        if isinstance(x,list):
+            flat_list(x)
         else:
-            total += l[j]
-
-    return total
-
-#print(sum_general_int_list([[2], 3, [[1,2],5]]))
+            result.append(x)
+    return result
+def sum_general_int_list(num_list):
+    return sum(flat_list(num_list))
+## test data
+# sum_general_int_list([[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1])
 
 
 
