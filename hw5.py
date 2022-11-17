@@ -9,26 +9,16 @@
 def car_at_light(light):
     try:
         if light=="red":
-            print("red")
             return ("stop")
         elif light=="green":
-            print("green")
             return ("go")
         elif light=="yellow":
-            print("yellow")
             return ("wait")
         else:
             raise Exception('"Undefined instruction for color: <light>" where <light> is the value of the parameter light.')
     except Exception as exception:
         print(exception)
         return
-
-#car_at_light("orange")
-#car_at_light("red")
-
-
-#__________________________________________________________________________________________________________#
-
 # 2)
 # Create a function named "safe_subtract" that
 # takes two parameters and returns the result of
@@ -61,14 +51,6 @@ def retrieve_age_eafp(x: dict):
         return 2022 - x['birth']
     except KeyError:
         return 'error'
-
-
-def retrieve_age_lbyl(x: dict):
-    if 'birth' in x.keys():
-        return 2022 - x['birth']
-    else:
-        print(f'failed for dict {x}')
-        pass
 
 
 # 4)
