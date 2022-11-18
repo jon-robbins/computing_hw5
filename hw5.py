@@ -1,4 +1,4 @@
-# 1)
+   # 1)
 # Create a function called "car_at_light"
 # It should take one parameter: "light"
 # which gives the color of a traffic light.
@@ -80,6 +80,43 @@ def read_data(filepath):
                 return line
     except FileNotFoundError:
         return 'File Not Found'
+
+#______________________________________________________________________
+
+#import csv
+#import pandas
+#import os
+
+#def read_data(filename):
+#    filepath = ""
+
+    # finding the file location and reading
+#   for root, dirs, files in os.walk(r'C:'):
+#        for name in files:
+#            if name == filename:
+#                filepath = (os.path.abspath(os.path.join(root, name)))
+#                print("File found at File path:",filepath)
+#    try:
+#        f = open(str(filepath), "r")
+#        print(f.read())
+#        # to read the csv as a dataframe we can do the below:
+#        # dataframe = pd.read_csv(filepath)
+#    except FileNotFoundError:
+#        print('File Not Found')
+#
+
+
+#filename_present= 'sample_diabetes_mellitus_data.csv'
+# function call with above filename will print the contents of the file
+#read_data(filename_present)
+
+#filename_not_present = 'this_file_is_not_in_system.csv'
+# function call with the above filename will throw File Not Found exception, which is handled in the except block
+#read_data(filename_not_present)
+
+#_____________________________________________________
+
+
 
 
 # 5) Squash some bugs! 
