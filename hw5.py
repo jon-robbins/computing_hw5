@@ -1,34 +1,32 @@
-   # 1)
+# 1)
 # Create a function called "car_at_light"
-# It should take one parameter: "light"
-# which gives the color of a traffic light.
-# If the color is "red", the function should return
-# "stop". If the color is "green", the function
-# should return "go". If the color is "yellow"
-# the function should return "wait". If the color
-# is anything else, the function should raise
-# an exception with the following message: 
-# "Undefined instruction for color: <light>" 
-# where <light> is the value of the parameter light.
-#
-def car_at_light(light):
-    if light == 'red':
-        return 'stop'
-    elif light == 'yellow':
-        return 'wait'
-    elif light == 'green':
-        return 'go'
-    else:
-        raise Exception(f'Undefined instruction for color {light}')
+# It should take one parameter: "light" which gives the color of a traffic light.
+# If the color is "red", the function should return "stop". If the color is "green", the function
+# should return "go". If the color is "yellow" the function should return "wait". If the color
+# is anything else, the function should raise an exception with the following message:
+# "Undefined instruction for color: <light>" where <light> is the value of the parameter light.
 
+def car_at_light(light):
+    try:
+        if light=="red":
+            return ("stop")
+        elif light=="green":
+            return ("go")
+        elif light=="yellow":
+            return ("wait")
+        else:
+            raise Exception('"Undefined instruction for color: <light>" where <light> is the value of the parameter light.')
+    except Exception as exception:
+        print(exception)
+        return
 # 2)
 # Create a function named "safe_subtract" that
 # takes two parameters and returns the result of
 # the second value subtracted from the first.
-# If the values cannot be subtracted due to its type, 
+# If the values cannot be subtracted due to its type,
 # it returns None.
-# If there is any other reason why it fails show the problem 
-# 
+# If there is any other reason why it fails show the problem
+#
 
 def safe_subtract(x,y):
     try:
@@ -53,14 +51,6 @@ def retrieve_age_eafp(x: dict):
         return 2022 - x['birth']
     except KeyError:
         return 'error'
-
-
-def retrieve_age_lbyl(x: dict):
-    if 'birth' in x.keys():
-        return 2022 - x['birth']
-    else:
-        print(f'failed for dict {x}')
-        pass
 
 
 # 4)
