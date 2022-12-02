@@ -71,6 +71,43 @@ def read_data(filepath):
     except FileNotFoundError:
         return 'File Not Found'
 
+#______________________________________________________________________
+
+#import csv
+#import pandas
+#import os
+
+#def read_data(filename):
+#    filepath = ""
+
+    # finding the file location and reading
+#   for root, dirs, files in os.walk(r'C:'):
+#        for name in files:
+#            if name == filename:
+#                filepath = (os.path.abspath(os.path.join(root, name)))
+#                print("File found at File path:",filepath)
+#    try:
+#        f = open(str(filepath), "r")
+#        print(f.read())
+#        # to read the csv as a dataframe we can do the below:
+#        # dataframe = pd.read_csv(filepath)
+#    except FileNotFoundError:
+#        print('File Not Found')
+#
+
+
+#filename_present= 'sample_diabetes_mellitus_data.csv'
+# function call with above filename will print the contents of the file
+#read_data(filename_present)
+
+#filename_not_present = 'this_file_is_not_in_system.csv'
+# function call with the above filename will throw File Not Found exception, which is handled in the except block
+#read_data(filename_not_present)
+
+#_____________________________________________________
+
+
+
 
 # 5) Squash some bugs! 
 # Find the possible logical errors (bugs) 
@@ -144,64 +181,32 @@ for i in strings:
 count2 = len(list(filter(lambda x: 'Simba' in x, strings)))
 #count2 is less readable, so if efficiency isn't a problem the for loop is better.
 
-def count_simba(str):
-    return sum(list(map(lambda x: 'Simba' in x , str)))
-
 # 7)
-# Create a function called "get_day_month_year" that takes
+# Create a function called "get_day_month_year" that takes 
 # a list of datetimes.date and returns a pandas dataframe
 # with 3 columns (day, month, year) in which each of the rows
-# is an element of the input list and has as value its
+# is an element of the input list and has as value its 
 # day, month, and year.
-#
-import datetime
-def get_day_month_year(date_list):
-    return pd.DataFrame(data=list(map(lambda x: [x.year,x.month,x.day], date_list)),columns=['year','month','day'])
+# 
 
-##test data
-# dateList = []
-# dateList.append(datetime.date.today())
-# dateList.append(datetime.date(2019, 4, 13))
-# dateList.append(datetime.date(2020, 12, 25))
-# get_day_month_year(dateList)
-
-# 8)
+# 8) 
 # Create a function called "compute_distance" that takes
-# a list of tuple pairs with latitude and longitude coordinates and
+# a list of tuple pairs with latitude and longitude coordinates and 
 # returns a list with the distance between the two pairs
 # example input: [((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))]
 # HINT: You can use geopy.distance in order to compute the distance
 #
-from geopy.distance import geodesic as GD
-
-def compute_distance(ll_list):
-    return list(map(lambda x:GD(x[0],x[1]).km, ll_list))
-
-## test data
-# compute_distance([((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))])
 
 #################################################
 # 9)
 # Consider a list that each element can be an integer or
 # a list that contains integers or more lists with integers
-# example: [[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1].
+# example: [[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1]. 
 # create a recursive function called "sum_general_int_list"
-# that takes as input this type of list
+# that takes as input this type of list 
 # and returns the sum of all the integers within the lists
-# for instance for list_1=[[2], 3, [[1,2],5]]
+# for instance for list_1=[[2], 3, [[1,2],5]] 
 # the result should be 13
 #
-def flat_list(num_list,result=[]):
-    for x in num_list:
-        if isinstance(x,list):
-            flat_list(x)
-        else:
-            result.append(x)
-    return result
-def sum_general_int_list(num_list):
-    return sum(flat_list(num_list))
-## test data
-# sum_general_int_list([[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1])
-
 
 
